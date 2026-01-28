@@ -48,17 +48,17 @@ if st.button("Load Data", type="primary"):
             start_date.strftime('%Y-%m-%d'),
             end_date.strftime('%Y-%m-%d')
         )
+        print("Response:", response)
         if response['success']:
             df = response['data']
-            # take a cop of the data
-            df_copy = df.copy()
-            # drop the sale id column
-            df_copy = df_copy.drop(columns=['sale_id'])
-            st.dataframe(df_copy)
-            
             if df.empty:
                 st.warning("No sales data found for the selected period.")
             else:
+                # take a cop of the data
+                df_copy = df.copy()
+                # drop the sale id column
+                df_copy = df_copy.drop(columns=['sale_id'])
+                st.dataframe(df_copy)
                 # Calculate metrics
                 total_sales = len(df)
                 total_revenue = df['price'].sum()
